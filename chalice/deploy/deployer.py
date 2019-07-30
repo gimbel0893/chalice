@@ -488,7 +488,7 @@ class ApplicationGraphBuilder(object):
             "Effect": "Allow",
             "Principal": "*",
             "Action": "execute-api:Invoke",
-            "Resource": "arn:aws:execute-api:*:*:*",
+            "Resource": "arn:aws-us-gov:execute-api:*:*:*",
             "Condition": {
                 "StringEquals": {
                     "aws:SourceVpce": config.api_gateway_endpoint_vpce

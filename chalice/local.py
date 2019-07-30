@@ -51,7 +51,7 @@ def create_local_server(app_obj, config, host, port):
 
 
 class LocalARNBuilder(object):
-    ARN_FORMAT = ('arn:aws:execute-api:{region}:{account_id}'
+    ARN_FORMAT = ('arn:aws-us-gov:execute-api:{region}:{account_id}'
                   ':{api_id}/{stage}/{method}/{resource_path}')
     LOCAL_REGION = 'mars-west-1'
     LOCAL_ACCOUNT_ID = '123456789012'

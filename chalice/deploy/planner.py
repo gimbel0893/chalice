@@ -318,7 +318,7 @@ class PlanStage(object):
         subscribe_varname = '%s_subscription_arn' % resource.resource_name
 
         instruction_for_topic_arn = []  # type: List[InstructionMsg]
-        if resource.topic.startswith('arn:aws:sns:'):
+        if resource.topic.startswith('arn:aws-us-gov:sns:'):
             instruction_for_topic_arn += [
                 models.StoreValue(
                     name=topic_arn_varname,
@@ -344,7 +344,7 @@ class PlanStage(object):
                 models.StoreValue(
                     name=topic_arn_varname,
                     value=StringFormat(
-                        'arn:aws:sns:{region_name}:{account_id}:%s' % (
+                        'arn:aws-us-gov:sns:{region_name}:{account_id}:%s' % (
                             resource.topic
                         ),
                         ['region_name', 'account_id'],
@@ -447,7 +447,7 @@ class PlanStage(object):
             models.StoreValue(
                 name=queue_arn_varname,
                 value=StringFormat(
-                    'arn:aws:sqs:{region_name}:{account_id}:%s' % (
+                    'arn:aws-us-gov:sqs:{region_name}:{account_id}:%s' % (
                         resource.queue
                     ),
                     ['region_name', 'account_id'],
@@ -631,8 +631,8 @@ class PlanStage(object):
                 models.StoreValue(
                     name='websocket-%s-integration-lambda-path' % key,
                     value=StringFormat(
-                        'arn:aws:apigateway:{region_name}:lambda:path/'
-                        '2015-03-31/functions/arn:aws:lambda:{region_name}:'
+                        'arn:aws-us-gov:apigateway:{region_name}:lambda:path/'
+                        '2015-03-31/functions/arn:aws-us-gov:lambda:{region_name}:'
                         '{account_id}:function:%s/'
                         'invocations' % config['name'],
                         ['region_name', 'account_id'],

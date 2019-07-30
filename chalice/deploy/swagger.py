@@ -172,7 +172,7 @@ class SwaggerGenerator(object):
         # type: (Optional[str]) -> Any
         if lambda_arn is None:
             lambda_arn = self._deployed_resources['api_handler_arn']
-        return ('arn:aws:apigateway:{region}:lambda:path/2015-03-31'
+        return ('arn:aws-us-gov:apigateway:{region}:lambda:path/2015-03-31'
                 '/functions/{lambda_arn}/invocations').format(
                     region=self._region, lambda_arn=lambda_arn)
 
@@ -249,7 +249,7 @@ class CFNSwaggerGenerator(SwaggerGenerator):
         # type: (Optional[str]) -> Any
         return {
             'Fn::Sub': (
-                'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31'
+                'arn:aws-us-gov:apigateway:${AWS::Region}:lambda:path/2015-03-31'
                 '/functions/${APIHandler.Arn}/invocations'
             )
         }
@@ -258,7 +258,7 @@ class CFNSwaggerGenerator(SwaggerGenerator):
         # type: (ChaliceAuthorizer) -> Any
         return {
             'Fn::Sub': (
-                'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31'
+                'arn:aws-us-gov:apigateway:${AWS::Region}:lambda:path/2015-03-31'
                 '/functions/${%s.Arn}/invocations' % to_cfn_resource_name(
                     authorizer.name)
             )
@@ -273,7 +273,7 @@ class TemplatedSwaggerGenerator(SwaggerGenerator):
     def _uri(self, lambda_arn=None):
         # type: (Optional[str]) -> Any
         return StringFormat(
-            'arn:aws:apigateway:{region_name}:lambda:path/2015-03-31'
+            'arn:aws-us-gov:apigateway:{region_name}:lambda:path/2015-03-31'
             '/functions/{api_handler_lambda_arn}/invocations',
             ['region_name', 'api_handler_lambda_arn'],
         )
@@ -282,7 +282,7 @@ class TemplatedSwaggerGenerator(SwaggerGenerator):
         # type: (ChaliceAuthorizer) -> Any
         varname = '%s_lambda_arn' % authorizer.name
         return StringFormat(
-            'arn:aws:apigateway:{region_name}:lambda:path/2015-03-31'
+            'arn:aws-us-gov:apigateway:{region_name}:lambda:path/2015-03-31'
             '/functions/{%s}/invocations' % varname,
             ['region_name', varname],
         )

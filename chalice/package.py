@@ -188,7 +188,7 @@ class SAMTemplateGenerator(object):
                 'Principal': 'apigateway.amazonaws.com',
                 'SourceArn': {
                     'Fn::Sub': [
-                        ('arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}'
+                        ('arn:aws-us-gov:execute-api:${AWS::Region}:${AWS::AccountId}'
                          ':${RestAPIId}/*'),
                         {'RestAPIId': {'Ref': 'RestAPI'}},
                     ]
@@ -205,7 +205,7 @@ class SAMTemplateGenerator(object):
                     'Principal': 'apigateway.amazonaws.com',
                     'SourceArn': {
                         'Fn::Sub': [
-                            ('arn:aws:execute-api:${AWS::Region}:'
+                            ('arn:aws-us-gov:execute-api:${AWS::Region}:'
                              '${AWS::AccountId}:${RestAPIId}/*'),
                             {'RestAPIId': {'Ref': 'RestAPI'}},
                         ]
@@ -261,8 +261,8 @@ class SAMTemplateGenerator(object):
                 'IntegrationUri': {
                     'Fn::Sub': [
                         (
-                            'arn:aws:apigateway:${AWS::Region}:lambda:path/'
-                            '2015-03-31/functions/arn:aws:lambda:'
+                            'arn:aws-us-gov:apigateway:${AWS::Region}:lambda:path/'
+                            '2015-03-31/functions/arn:aws-us-gov:lambda:'
                             '${AWS::Region}:' '${AWS::AccountId}:function:'
                             '${WebsocketHandler}/invocations'
                         ),
@@ -283,7 +283,7 @@ class SAMTemplateGenerator(object):
                 'Principal': 'apigateway.amazonaws.com',
                 'SourceArn': {
                     'Fn::Sub': [
-                        ('arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}'
+                        ('arn:aws-us-gov:execute-api:${AWS::Region}:${AWS::AccountId}'
                          ':${WebsocketAPIId}/*'),
                         {'WebsocketAPIId': api_ref},
                     ]
@@ -474,12 +474,12 @@ class SAMTemplateGenerator(object):
         sns_cfn_name = self._register_cfn_resource_name(
             resource.resource_name)
 
-        if resource.topic.startswith('arn:aws:sns:'):
+        if resource.topic.startswith('arn:aws-us-gov:sns:'):
             topic_arn = resource.topic  # type: Union[str, Dict[str, str]]
         else:
             topic_arn = {
                 'Fn::Sub': (
-                    'arn:aws:sns:${AWS::Region}:${AWS::AccountId}:%s' %
+                    'arn:aws-us-gov:sns:${AWS::Region}:${AWS::AccountId}:%s' %
                     resource.topic
                 )
             }
@@ -505,7 +505,7 @@ class SAMTemplateGenerator(object):
                 'Properties': {
                     'Queue': {
                         'Fn::Sub': (
-                            'arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:%s' %
+                            'arn:aws-us-gov:sqs:${AWS::Region}:${AWS::AccountId}:%s' %
                             resource.queue
                         )
                     },

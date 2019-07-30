@@ -655,7 +655,7 @@ class TypedAWSClient(object):
     def _build_source_arn_str(self, region_name, account_id, rest_api_id):
         # type: (str, str, str) -> str
         source_arn = (
-            'arn:aws:execute-api:'
+            'arn:aws-us-gov:execute-api:'
             '{region_name}:{account_id}:{rest_api_id}/*').format(
                 region_name=region_name,
                 # Assuming same account id for lambda function and API gateway.
@@ -717,7 +717,7 @@ class TypedAWSClient(object):
         region_name = parts[3]
         account_id = parts[4]
         function_name = parts[-1]
-        source_arn = ("arn:aws:execute-api:%s:%s:%s/authorizers/%s" %
+        source_arn = ("arn:aws-us-gov:execute-api:%s:%s:%s/authorizers/%s" %
                       (region_name, account_id, rest_api_id, authorizer_id))
         if random_id is None:
             random_id = self._random_id()
@@ -829,7 +829,7 @@ class TypedAWSClient(object):
 
     def add_permission_for_s3_event(self, bucket, function_arn):
         # type: (str, str) -> None
-        bucket_arn = 'arn:aws:s3:::%s' % bucket
+        bucket_arn = 'arn:aws-us-gov:s3:::%s' % bucket
         self._add_lambda_permission_if_needed(
             source_arn=bucket_arn,
             function_arn=function_arn,
@@ -838,7 +838,7 @@ class TypedAWSClient(object):
 
     def remove_permission_for_s3_event(self, bucket, function_arn):
         # type: (str, str) -> None
-        bucket_arn = 'arn:aws:s3:::%s' % bucket
+        bucket_arn = 'arn:aws-us-gov:s3:::%s' % bucket
         self._remove_lambda_permission_if_needed(
             source_arn=bucket_arn,
             function_arn=function_arn,
@@ -897,7 +897,7 @@ class TypedAWSClient(object):
         #    "Principal": {
         #     "Service": "apigateway.amazonaws.com"
         #    },
-        #    "Resource": "arn:aws:lambda:us-west-2:aid:function:name",
+        #    "Resource": "arn:aws-us-gov:lambda:us-west-2:aid:function:name",
         #    "Sid": "e4755709-067e-4254-b6ec-e7f9639e6f7b"
         #   }
         #  ],
@@ -993,7 +993,7 @@ class TypedAWSClient(object):
             arn_start, actual_name = actual_arn.rsplit(':', 1)
             return (
                 actual_name == resource_name and
-                arn_start.startswith('arn:aws:%s' % service_name) and
+                arn_start.startswith('arn:aws-us-gov:%s' % service_name) and
                 attributes['FunctionArn'] == function_arn
             )
         except client.exceptions.ResourceNotFoundException:

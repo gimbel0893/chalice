@@ -1215,7 +1215,7 @@ class AuthResponse(object):
     def _generate_arn(self, route, request, method='*'):
         incoming_arn = request.method_arn
         parts = incoming_arn.rsplit(':', 1)
-        # "arn:aws:execute-api:us-west-2:123:rest-api-id/dev/GET/needs/auth"
+        # "arn:aws-us-gov:execute-api:us-west-2:123:rest-api-id/dev/GET/needs/auth"
         # Then we pull out the rest-api-id and stage, such that:
         #   base = ['rest-api-id', 'stage']
         base = parts[-1].split('/')[:2]
